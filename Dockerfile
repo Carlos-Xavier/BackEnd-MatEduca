@@ -15,9 +15,6 @@ WORKDIR /var/www/html
 # Copie o arquivo composer.json e composer.lock para o contêiner
 COPY composer.json composer.lock ./
 
-# Instale as dependências do Composer
-RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
-
 # Limpe o cache do Laravel
 RUN php artisan optimize:clear
 
