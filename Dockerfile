@@ -1,6 +1,6 @@
 FROM composer:2.4 as build 
 COPY . /app/ 
-RUN composer install
+RUN composer -d memory_limit=-1 install
 
 FROM php:8.2-apache-buster as dev 
 ENV APP_ENV=dev 
