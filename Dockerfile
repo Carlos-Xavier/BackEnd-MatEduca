@@ -1,6 +1,6 @@
 FROM composer:2.4 as build 
 COPY . /app/ 
-RUN composer install --prefer-dist --no-dev --optimize-autoloader --no-interaction 
+RUN composer install
 
 FROM php:8.2-apache-buster as dev 
 ENV APP_ENV=dev 
