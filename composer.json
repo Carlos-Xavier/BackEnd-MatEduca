@@ -60,7 +60,15 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
-        }
+        },
+        "platform": {
+        "php": "7.2.14",
+        "ext-fileinfo": "1.0.5",
+        "ext-pdo": "7.2.14",
+        "ext-session": "7.2.14",
+        "ext-iconv": "7.2.14",
+        "ext-zip": "1.15.4"
+    },
     },
     "minimum-stability": "stable",
     "prefer-stable": true
