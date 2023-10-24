@@ -1,3 +1,4 @@
 
-RUN composer update --ignore-platform-reqs
-RUN composer install --ignore-platform-reqs --prefer-dist --no-interaction 
+RUN apt-get update && apt-get install -y \
+    libzip-dev \
+    unzip
