@@ -1,6 +1,6 @@
 FROM composer:2.4 as build 
 COPY . /app/ 
-RUN php -d memory_limit=512M composer install
+RUN COMPOSER_MEMORY_LIMIT=-1 composer update
 
 FROM php:8.2-apache-buster as dev 
 ENV APP_ENV=dev 
