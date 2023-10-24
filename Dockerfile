@@ -11,5 +11,5 @@ RUN docker-php-ext-install pdo pdo_mysql
 
 COPY . /var/www/html/ 
 COPY --from=build /usr/bin/composer /usr/bin/composer 
-RUN COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-dist --no-interaction 
+RUN COMPOSER_MEMORY_LIMIT=-1 composer install --ignore-platform-reqs --prefer-dist --no-interaction 
 CMD ["php","artisan","serve","--host=0.0.0.0"]
