@@ -2,10 +2,22 @@
 FROM php:7.4-fpm
 
 # Atualize a lista de pacotes e instale as dependências necessárias
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y  --no-install-recommends\
+    apt-utils \ 
     libzip-dev \
-    unzip
+    unzip \
+    supervisor
 
+# dependências recomendadas de desenvolvido para ambiente linux
+RUN apt-get update && apt-get install -y \
+    zlib1g-dev \
+    libzip-dev \
+    unzip \
+    libpng-dev \
+    libpq-dev \
+    libxml2-dev
+
+RUN docker-php-ext-install mysqli pdo pdo_mysql pdo_pgsql pgsql session xml
 # Instale o Composer globalmente
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -15,8 +27,7 @@ WORKDIR /var/www/html
 # Copie o arquivo composer.json e composer.lock para o contêiner
 COPY composer.json composer.lock ./
 
-# Limpe o cache do Laravel
-RUN php artisan optimize:clear
+
 
 # Execute as migrações do banco de dados forçando
 RUN php artisan migrate --force
