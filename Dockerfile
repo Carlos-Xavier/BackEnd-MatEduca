@@ -15,21 +15,19 @@ RUN apt-get update && apt-get install -y \
     unzip \
     libpng-dev \
     libpq-dev \
-    libxml2-dev
+    libxml2-dev \
+    apt-get install redis-server -y
 
 RUN docker-php-ext-install mysqli pdo pdo_mysql pdo_pgsql pgsql session xml
 # Instale o Composer globalmente
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Defina o diretório de trabalho como a pasta do seu projeto Laravel
-WORKDIR /var/www/html
+WORKDIR /var/www/
 
 # Copie o arquivo composer.json e composer.lock para o contêiner
 COPY composer.json composer.lock ./
 
-RUN apt-get update -y && apt-get install -y openssl zip unzip git
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN apt-get install zlib1g-dev -y && apt-get install zlib1g && apt-get install libpng-dev -y && apt-get install -y libzip-dev && apt-get install redis-server -y
 RUN docker-php-ext-install pdo pdo_mysql gd zip
 
 RUN composer install
