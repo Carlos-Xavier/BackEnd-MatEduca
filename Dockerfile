@@ -23,7 +23,7 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql pdo_pgsql pgsql session xml
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Defina o diretório de trabalho como a pasta do seu projeto Laravel
-WORKDIR /var/www/
+WORKDIR /
 
 # Copie o arquivo composer.json e composer.lock para o contêiner
 COPY composer.json composer.lock ./
