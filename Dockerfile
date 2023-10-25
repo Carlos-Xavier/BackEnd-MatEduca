@@ -27,7 +27,15 @@ WORKDIR /var/www/html
 # Copie o arquivo composer.json e composer.lock para o contêiner
 COPY composer.json composer.lock ./
 
+RUN apt-get update -y && apt-get install -y openssl zip unzip git
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN apt-get install zlib1g-dev -y && apt-get install zlib1g && apt-get install libpng-dev -y && apt-get install -y libzip-dev && apt-get install redis-server -y
+RUN docker-php-ext-install pdo pdo_mysql gd zip
 
+RUN composer install
+
+# Limpe o cache do Laravel 
+RUN php artisan optimize:clear
 
 # Execute as migrações do banco de dados forçando
 RUN php artisan migrate --force
